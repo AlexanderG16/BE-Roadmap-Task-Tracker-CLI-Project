@@ -198,6 +198,13 @@ func main() {
 		switch os.Args[2] {
 		case "todo":
 			// TODO: Implement list todo tasks
+			for _, task := range tasks {
+				if task.Status == "todo" {
+					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("------------------------------------------\n")
+				}
+			}
 		case "in-progress":
 			// TODO: Implement list in progress tasks
 		case "done":
