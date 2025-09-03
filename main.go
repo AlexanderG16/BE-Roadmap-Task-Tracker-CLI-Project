@@ -80,6 +80,10 @@ func main() {
 		// Write an empty JSON array to the file
 		file.WriteString("[]")
 	case "add":
+		if len(os.Args) < 3 {
+			fmt.Println("Invalid add command. Usage: add [description<>group]")
+			return
+		}
 		result := strings.Split(os.Args[2], "<>")
 		createdAt := time.Now().Format(time.RFC3339)
 		id := strings.Join([]string{time.Now().Format("0102T15:04"), strings.ToUpper(result[0][0:2])}, "-")
@@ -93,9 +97,48 @@ func main() {
 			UpdatedAt:   createdAt,
 		}
 		saveTask(task)
-		fmt.Println("Task added successfully (ID: ", task.ID, ")")
+		fmt.Printf("Task added successfully (ID: %s)\n", task.ID)
 	case "update":
-		// TODO: Implement update task
+		if len(os.Args) < 4 {
+			fmt.Println("Invalid update command. Usage: update [id] [description<>group]")
+			return
+		}
+		id := os.Args[2]
+		result := strings.Split(os.Args[3], "<>")
+		if len(result) < 2 {
+			fmt.Println("Invalid update command. Usage: update [id] [description<>group]")
+			return
+		}
+		description := result[0]
+		group := result[1]
+
+		tasks, err := loadTasks()
+		if err != nil {
+			panic(err)
+		}
+
+		for i, task := range tasks {
+			if task.ID == id {
+				tasks[i].Description = description
+				tasks[i].Group = group
+				tasks[i].UpdatedAt = time.Now().Format(time.RFC3339)
+				break
+			}
+		}
+
+		file, err := os.OpenFile("./tasks/tasks.json", os.O_WRONLY|os.O_TRUNC, 0644)
+		if err != nil {
+			panic(err)
+		}
+		defer file.Close()
+
+		encoder := json.NewEncoder(file)
+		encoder.SetIndent("", "  ")
+		if err := encoder.Encode(tasks); err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Task updated successfully (ID: %s)\n", id)
 	case "delete":
 		// TODO: Implement delete task
 	case "mark":
