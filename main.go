@@ -140,7 +140,37 @@ func main() {
 
 		fmt.Printf("Task updated successfully (ID: %s)\n", id)
 	case "delete":
+		if len(os.Args) < 3 {
+			fmt.Println("Invalid delete command. Usage: delete [id]")
+			return
+		}
 		// TODO: Implement delete task
+		id := os.Args[2]
+		tasks, err := loadTasks()
+		if err != nil {
+			panic(err)
+		}
+
+		for i, task := range tasks {
+			if task.ID == id {
+				tasks = append(tasks[:i], tasks[i+1:]...)
+				break
+			}
+		}
+
+		file, err := os.OpenFile("./tasks/tasks.json", os.O_WRONLY|os.O_TRUNC, 0644)
+		if err != nil {
+			panic(err)
+		}
+		defer file.Close()
+
+		encoder := json.NewEncoder(file)
+		encoder.SetIndent("", "  ")
+		if err := encoder.Encode(tasks); err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Task deleted successfully (ID: %s)\n", id)
 	case "mark":
 		// TODO: Implement mark task
 	case "list":
