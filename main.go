@@ -69,6 +69,16 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case "init":
+		// Initialize the tasks.json file
+		file, err := os.Create("./tasks/tasks.json")
+		if err != nil {
+			panic(err)
+		}
+		defer file.Close()
+
+		// Write an empty JSON array to the file
+		file.WriteString("[]")
 	case "add":
 		result := strings.Split(os.Args[2], "<>")
 		createdAt := time.Now().Format(time.RFC3339)
