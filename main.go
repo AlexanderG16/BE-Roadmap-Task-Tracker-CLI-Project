@@ -188,8 +188,8 @@ func main() {
 		if len(os.Args) == 2 {
 			// TODO: Implement list all tasks
 			for _, task := range tasks {
-				fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
-					task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+				fmt.Printf("ID: %s\nDescription: %s\nGroup:%s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+					task.ID, task.Description, task.Group, task.Status, task.CreatedAt, task.UpdatedAt)
 				fmt.Printf("------------------------------------------\n")
 			}
 			return
@@ -200,8 +200,8 @@ func main() {
 			// TODO: Implement list todo tasks
 			for _, task := range tasks {
 				if task.Status == "todo" {
-					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
-						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("ID: %s\nDescription: %s\nGroup:%s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Group, task.Status, task.CreatedAt, task.UpdatedAt)
 					fmt.Printf("------------------------------------------\n")
 				}
 			}
@@ -209,8 +209,8 @@ func main() {
 			// TODO: Implement list in progress tasks
 			for _, task := range tasks {
 				if task.Status == "in progress" {
-					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
-						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("ID: %s\nDescription: %s\nGroup:%s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Group, task.Status, task.CreatedAt, task.UpdatedAt)
 					fmt.Printf("------------------------------------------\n")
 				}
 			}
@@ -218,8 +218,8 @@ func main() {
 			// TODO: Implement list done tasks
 			for _, task := range tasks {
 				if task.Status == "done" {
-					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
-						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("ID: %s\nDescription: %s\nGroup:%s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Group, task.Status, task.CreatedAt, task.UpdatedAt)
 					fmt.Printf("------------------------------------------\n")
 				}
 			}
@@ -231,8 +231,8 @@ func main() {
 			}
 			for _, task := range tasks {
 				if task.Group == os.Args[3] {
-					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
-						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("ID: %s\nDescription: %s\nGroup:%s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Group, task.Status, task.CreatedAt, task.UpdatedAt)
 					fmt.Printf("------------------------------------------\n")
 					exist = true
 				}
