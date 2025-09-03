@@ -171,8 +171,38 @@ func main() {
 		}
 
 		fmt.Printf("Task deleted successfully (ID: %s)\n", id)
-	case "mark":
+	case "mark-in-progress":
+		if len(os.Args) < 3 {
+			fmt.Println("Invalid mark-in-progress command. Usage: mark-in-progress [id]")
+			return
+		}
 		// TODO: Implement mark task
+		tasks, err := loadTasks()
+		if err != nil {
+			panic(err)
+		}
+		for i, task := range tasks {
+			if task.ID == os.Args[2] {
+				task.Status = "in progress"
+				task.UpdatedAt = time.Now().Format(time.RFC3339)
+				tasks[i] = task
+				break
+			}
+		}
+
+		file, err := os.OpenFile("./tasks/tasks.json", os.O_WRONLY|os.O_TRUNC, 0644)
+		if err != nil {
+			panic(err)
+		}
+		defer file.Close()
+
+		encoder := json.NewEncoder(file)
+		encoder.SetIndent("", "  ")
+		if err := encoder.Encode(tasks); err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Task marked as in progress (ID: %s)\n", os.Args[2])
 	case "list":
 		// TODO: Implement list tasks
 		tasks, err := loadTasks()
