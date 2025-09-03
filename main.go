@@ -69,7 +69,26 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case "help":
+		fmt.Println("Available commands:")
+		fmt.Println("  init                        		Initialize the tasks.json file")
+		fmt.Println("  add [description<>group]    		Add a new task")
+		fmt.Println("  update [id] [description<>group]  	Update an existing task")
+		fmt.Println("  delete [id]                 		Delete a task")
+		fmt.Println("  mark-in-progress [id]       		Mark a task as in progress")
+		fmt.Println("  mark-done [id]              		Mark a task as done")
+		fmt.Println("  list                        		List all tasks")
+		fmt.Println("  list todo                   		List all tasks with status 'todo'")
+		fmt.Println("  list in-progress            		List all tasks with status 'in progress'")
+		fmt.Println("  list done                   		List all tasks with status 'done'")
+		fmt.Println("  list group [group_name]     		List all tasks in a specific group")
+		fmt.Println("  list-group                  		List all unique task groups")
 	case "init":
+		// Create the tasks folder
+		err := os.MkdirAll("./tasks", 0755)
+		if err != nil {
+			panic(err)
+		}
 		// Initialize the tasks.json file
 		file, err := os.Create("./tasks/tasks.json")
 		if err != nil {
