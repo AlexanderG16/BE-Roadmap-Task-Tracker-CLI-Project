@@ -207,8 +207,22 @@ func main() {
 			}
 		case "in-progress":
 			// TODO: Implement list in progress tasks
+			for _, task := range tasks {
+				if task.Status == "in progress" {
+					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("------------------------------------------\n")
+				}
+			}
 		case "done":
 			// TODO: Implement list done tasks
+			for _, task := range tasks {
+				if task.Status == "done" {
+					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("------------------------------------------\n")
+				}
+			}
 		case "group":
 			// TODO: Implement list grouped tasks
 		default:
