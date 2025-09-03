@@ -243,6 +243,29 @@ func main() {
 		default:
 			fmt.Println("Unknown list option: ", os.Args[2])
 		}
+	case "list-group":
+		seen := make(map[string]bool)
+		var uniqueGroups []string
+		tasks, err := loadTasks()
+		if err != nil {
+			panic(err)
+		}
+
+		for _, task := range tasks {
+			if _, found := seen[task.Group]; !found {
+				seen[task.Group] = true
+				uniqueGroups = append(uniqueGroups, task.Group)
+			}
+		}
+
+		if len(uniqueGroups) == 0 {
+			fmt.Println("No groups found.")
+		} else {
+			fmt.Println("Unique task groups:")
+			for _, group := range uniqueGroups {
+				fmt.Println(" -", group)
+			}
+		}
 	default:
 		fmt.Println("Unknown command: ", os.Args[1])
 	}
