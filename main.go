@@ -224,7 +224,22 @@ func main() {
 				}
 			}
 		case "group":
-			// TODO: Implement list grouped tasks
+			exist := false
+			if len(os.Args) < 4 {
+				fmt.Println("Invalid list group command. Usage: list group [group_name]")
+				return
+			}
+			for _, task := range tasks {
+				if task.Group == os.Args[3] {
+					fmt.Printf("ID: %s\nDescription: %s\nStatus: %s\nCreated At: %s\nUpdated At: %s\n\n",
+						task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+					fmt.Printf("------------------------------------------\n")
+					exist = true
+				}
+			}
+			if !exist {
+				fmt.Printf("No tasks found in group: %s\n", os.Args[3])
+			}
 		default:
 			fmt.Println("Unknown list option: ", os.Args[2])
 		}
